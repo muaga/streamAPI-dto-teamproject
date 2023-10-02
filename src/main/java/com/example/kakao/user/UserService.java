@@ -9,7 +9,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.kakao._core.errors.exception.Exception400;
 import com.example.kakao._core.errors.exception.Exception500;
-import com.example.kakao._core.utils.JwtTokenUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,10 +33,6 @@ public class UserService {
                 .orElseThrow(() -> new Exception400("email을 찾을 수 없습니다 : " +
                         requestDTO.getEmail()));
 
-        // 토큰 생성
-        return JwtTokenUtils.create(userPS);
+        return null;
     }
 }
-// 언약이 화이팅
-// 토큰 야무지게 생성했구나... 야무지다 야무져..
-// 안지워야겠다는 말 지키길바래...

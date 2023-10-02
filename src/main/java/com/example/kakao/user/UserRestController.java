@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.kakao._core.advice.ValidAdvice;
 import com.example.kakao._core.utils.ApiUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,6 @@ public class UserRestController {
 
     private final UserService userService;
     private final HttpSession session;
-    private final ValidAdvice validAdvice;
 
     // 회원가입
     @PostMapping("/join")
@@ -32,9 +30,9 @@ public class UserRestController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid UserRequest.LoginDTO requestDTO, Errors errors) {
-        String jwt = userService.login(requestDTO);
-        return ResponseEntity.ok().header("Authorization", jwt).body(ApiUtils.success(null));
+    public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO requestDTO, Errors errors) {
+        userService.login(requestDTO);
+        return ResponseEntity.ok().body(ApiUtils.success(null));
     }
 
     // 로그아웃

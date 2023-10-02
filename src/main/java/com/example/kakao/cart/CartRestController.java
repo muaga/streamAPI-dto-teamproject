@@ -28,12 +28,7 @@ public class CartRestController {
     // (기능3) 장바구니 조회
     @GetMapping("/carts")
     public ResponseEntity<?> findAllByUser() {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            throw new Exception401("인증되지 않았습니다");
-        }
-        FindAllByUserDTO carts = cartService.findAllByUser(1);
-        return ResponseEntity.ok(ApiUtils.success(carts));
+        return ResponseEntity.ok(ApiUtils.success(null));
     }
 
     // 장바구니 담기

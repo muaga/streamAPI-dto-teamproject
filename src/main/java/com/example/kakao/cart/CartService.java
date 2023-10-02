@@ -20,8 +20,7 @@ public class CartService {
 
     // (기능3) 장바구니 조회
     public CartResponse.FindAllByUserDTO findAllByUser(Integer sessionUserId) {
-        List<Cart> cartList = cartJPARepository.findAllByUserId(sessionUserId);
-        return new CartResponse.FindAllByUserDTO(cartList);
+        return null;
     }
 
     @Transactional
