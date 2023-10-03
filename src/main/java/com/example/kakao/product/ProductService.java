@@ -27,8 +27,13 @@ public class ProductService {
 
     // (기능1) 상품 목록보기
     public List<ProductResponse.FindAllDTO> findAll(int page) {
-
-        return null;
+        Pageable pageable = PageRequest.of(page, 9);
+        Page<Product> productPage = productJPARepository.findAll(pageable);
+        int productDelivery = 1;
+        List<ProductResponse.FindAllDTO> responseDTO = productPage.getContent().stream()
+                .map(product -> new ProductResponse.FindAllDTO(product, productDelivery))
+                .collect(Collectors.toList());
+        return responseDTO;
     }
 
     // (기능2) 상품 상세보기
