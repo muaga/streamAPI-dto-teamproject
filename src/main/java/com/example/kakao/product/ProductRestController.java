@@ -28,6 +28,7 @@ public class ProductRestController {
     // (기능2) 상품 상세보기
     @GetMapping("/products/{id}")
     public ResponseEntity<?> findById(@PathVariable int id) {
-        return ResponseEntity.ok().body(ApiUtils.success(null));
+        ProductResponse.FindByIdDTO responseDTO = productService.findById(id);
+        return ResponseEntity.ok().body(ApiUtils.success(responseDTO));
     }
 }
