@@ -1,6 +1,7 @@
 package com.example.kakao.cart;
 
 import com.example.kakao._core.errors.exception.Exception404;
+import com.example.kakao.cart.CartResponse.FindAllByUserDTO;
 import com.example.kakao.product.option.Option;
 import com.example.kakao.product.option.OptionJPARepository;
 import com.example.kakao.user.User;
@@ -19,8 +20,15 @@ public class CartService {
     private final OptionJPARepository optionJPARepository;
 
     // (기능3) 장바구니 조회
-    public CartResponse.FindAllByUserDTO findAllByUser(Integer sessionUserId) {
-        return null;
+    public CartResponse.FindAllByUserDTO findAllByUser(int sessionUserId) {
+
+        // 1. 유저의 장바구니 조회
+        List<Cart> carts = cartJPARepository.findAllByUserId(sessionUserId);
+        if (carts.size() == 0) {
+            throw new Exception404("장바구니에 아무 내역도 존재하지 않습니다.");
+        }
+        CartResponse.FindAllByUserDTO responseDTO = new FindAllByUserDTO(carts);
+        return responseDTO;
     }
 
     @Transactional
