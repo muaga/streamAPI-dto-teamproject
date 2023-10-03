@@ -10,6 +10,7 @@ import com.example.kakao._core.errors.exception.Exception404;
 import com.example.kakao._core.errors.exception.Exception500;
 import com.example.kakao.cart.Cart;
 import com.example.kakao.cart.CartJPARepository;
+import com.example.kakao.order.OrderResponse.FindAllByUserDTO;
 import com.example.kakao.order.OrderResponse.FindByIdDTO;
 import com.example.kakao.order.item.Item;
 import com.example.kakao.order.item.ItemJPARepository;
@@ -33,7 +34,7 @@ public class OrderService {
         if (carts.size() == 0) {
             throw new Exception404("장바구니에 아무 내역도 존재하지 않습니다.");
         }
-        OrderResponse.FindAllByUserDTO responseDTO = new OrderResponse.FindAllByUserDTO(carts);
+        OrderResponse.FindAllByUserDTO responseDTO = new FindAllByUserDTO(carts);
         return responseDTO;
     }
 

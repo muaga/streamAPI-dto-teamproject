@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.kakao._core.errors.exception.Exception404;
+import com.example.kakao.product.ProductResponse.FindByIdDTO;
 import com.example.kakao.product.option.Option;
 import com.example.kakao.product.option.OptionJPARepository;
 
@@ -32,7 +33,13 @@ public class ProductService {
 
     // (기능2) 상품 상세보기
     public ProductResponse.FindByIdDTO findById(int id) {
-
-        return null;
+        // 1. productId로 option 조회
+        List<Option> options = optionJPARepository.findByProductId(id);
+        if (options.size() == 0) {
+            throw new Exception404("해당 제품은 존재하지 않습니다.");
+        }
+        int starCount = 4;
+        ProductResponse.FindByIdDTO responseDTO = new FindByIdDTO(options, starCount);
+        return responseDTO;
     }
 }
