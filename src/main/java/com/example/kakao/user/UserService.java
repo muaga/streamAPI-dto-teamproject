@@ -2,6 +2,8 @@ package com.example.kakao.user;
 
 import java.time.Instant;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class UserService {
     private final UserJPARepository userJPARepository;
+    private final HttpSession session;
 
     @Transactional
     public void join(UserRequest.JoinDTO requestDTO) {
@@ -32,7 +35,7 @@ public class UserService {
         User userPS = userJPARepository.findByEmail(requestDTO.getEmail())
                 .orElseThrow(() -> new Exception400("email을 찾을 수 없습니다 : " +
                         requestDTO.getEmail()));
-
+        session.setAttribute("sessionUser", userPS);
         return null;
     }
 }

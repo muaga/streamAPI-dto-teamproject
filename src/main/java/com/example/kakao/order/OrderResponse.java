@@ -18,7 +18,32 @@ public class OrderResponse {
     @Getter
     @Setter
     public static class FindAllByUserDTO {
+        private List<CartDTO> carts;
+        private int totalprice;
 
+        public FindAllByUserDTO(List<Cart> carts) {
+            this.carts = carts.stream().map(cart -> new CartDTO(cart)).collect(Collectors.toList());
+            this.totalprice = carts.stream().mapToInt(cart -> cart.getPrice()).sum();
+        }
+
+        @ToString
+        @Getter
+        @Setter
+        public class CartDTO {
+            private int cartId;
+            private String productName;
+            private String optionName;
+            private int cartQuantity;
+            private int cartPrice;
+
+            public CartDTO(Cart cart) {
+                this.cartId = cart.getId();
+                this.productName = cart.getOption().getProduct().getProductName();
+                this.optionName = cart.getOption().getOptionName();
+                this.cartQuantity = cart.getQuantity();
+                this.cartPrice = cart.getPrice();
+            }
+        }
     }
 
     // (기능5) 주문결과 확인
