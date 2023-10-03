@@ -27,8 +27,20 @@ public class ProductService {
 
     // (기능1) 상품 목록보기
     public List<ProductResponse.FindAllDTO> findAll(int page) {
+        // 1. 1페이지당 9개의 게시물 등록하기
+        Pageable pageable = PageRequest.of(page, 9);
 
-        return null;
+        // 2. product를 페이징(List)화 시키기
+        Page<Product> productPage = productJPARepository.findAll(pageable);
+
+        // 3. 무료배송 = 1
+        int productDelivery = 1;
+
+        // 4. 페이징화된 product를 DTO에 담기
+        List<ProductResponse.FindAllDTO> responseDTO = productPage.getContent().stream()
+                .map(product -> new ProductResponse.FindAllDTO(product, productDelivery))
+                .collect(Collectors.toList());
+        return responseDTO;
     }
 
     // (기능2) 상품 상세보기
