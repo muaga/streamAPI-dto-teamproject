@@ -2,12 +2,7 @@ package com.example.kakao.product;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.*;
-
-import com.example.kakao.product.option.Option;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
